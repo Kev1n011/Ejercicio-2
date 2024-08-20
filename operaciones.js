@@ -76,3 +76,11 @@ img.src = 'images.jpeg';
 img.onload = function() {
     ctx.drawImage(img, 750, 250, 800, 100); 
 };
+
+//Gradients
+const grd = ctx.createLinearGradient(0, 0, 170, 0);
+grd.addColorStop(0, "red");
+grd.addColorStop(1, "yellow");
+
+ctx.fillStyle = grd;
+ctx.fillRect(20, 520, 150, 100);
