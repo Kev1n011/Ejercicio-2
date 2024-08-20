@@ -68,3 +68,11 @@ ctx.strokeText("Hola mundo!", 500, 50);
 ctx.font = "50px Georgia";
 ctx.fillStyle  ="blue";
 ctx.fillText("Hola mundo!", 500, 50);
+
+
+//Imagen
+var img = new Image();
+img.src = 'images.jpeg';
+img.onload = function() {
+    ctx.drawImage(img, 750, 250, 800, 100); 
+};
