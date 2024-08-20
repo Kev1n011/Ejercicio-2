@@ -42,7 +42,6 @@ ctx.stroke();
           
 
 //CUADRADOS
-//Cuadrados
 ctx.fillStyle = "red";
 ctx.fillRect(120, 20, 100, 100);
 
@@ -60,4 +59,12 @@ ctx.strokeStyle = "red";
 ctx.lineWidth = 3;
 ctx.strokeRect(470, 355, 100, 100);
 
-//PRUEBA IMAGEN
+//Texto
+ctx.font = "50px Georgia";   
+ctx.strokeStyle = "red";    
+ctx.lineWidth = 2;         
+ctx.strokeText("Hola mundo!", 500, 50); 
+
+ctx.font = "50px Georgia";
+ctx.fillStyle  ="blue";
+ctx.fillText("Hola mundo!", 500, 50);
