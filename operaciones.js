@@ -78,9 +78,23 @@ img.onload = function() {
 };
 
 //Gradients
+
+
 const grd = ctx.createLinearGradient(0, 0, 170, 0);
 grd.addColorStop(0, "red");
 grd.addColorStop(1, "yellow");
 
 ctx.fillStyle = grd;
 ctx.fillRect(20, 520, 150, 100);
+
+ctx.fillStyle = "blue";  
+ctx.fillRect(300, 20, 150, 100);  
+
+const grd2 = ctx.createRadialGradient(575, 370, 5, 575, 370, 100);
+grd2.addColorStop(0, "red");
+grd2.addColorStop(1, "blue");
+
+
+ctx.fillStyle = grd2;
+ctx.fillRect(570, 340, 150, 100);
+
