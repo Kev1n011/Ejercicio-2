@@ -98,3 +98,35 @@ grd2.addColorStop(1, "blue");
 ctx.fillStyle = grd2;
 ctx.fillRect(570, 340, 150, 100);
 
+var figura = 1;
+
+
+
+document.getElementById("myCanvas").addEventListener("mousedown", function(e){
+    
+    let numeroRandom = Math.floor(Math.random() * 256); 
+    let numeroRandom2 = Math.floor(Math.random() * 256);
+    
+  
+    console.log(e);
+    if (figura == 1){
+        ctx.beginPath();
+        ctx.arc(e.x - 10, e.y - 10, 20, 0, 2 * Math.PI);
+        ctx.fillStyle = `rgba(${numeroRandom}, ${numeroRandom2}, 255, 0.8)`;            
+        ctx.fill(); 
+        ctx.strokeStyle = "black";
+        ctx.lineWidth = 0.5;
+        ctx.stroke();
+        figura++;
+
+    }else{
+        ctx.beginPath();
+        ctx.fillRect(e.x-50, e.y-50, 100, 100);
+        ctx.fillStyle = "red";
+        
+        ctx.fill();
+        figura--;
+
+    }
+
+})
