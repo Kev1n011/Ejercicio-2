@@ -114,11 +114,14 @@ document.getElementById("myCanvas").addEventListener("mouseout", function (e) {
 
 
 })
+var botonPresionado = false; 
+
 
 document.getElementById("myCanvas").addEventListener("mousedown", function (e) {
 
     let numeroRandom = Math.floor(Math.random() * 256);
     let numeroRandom2 = Math.floor(Math.random() * 256);
+    botonPresionado = true;
 
 
     console.log(e);
@@ -142,15 +145,17 @@ document.getElementById("myCanvas").addEventListener("mousedown", function (e) {
 
 })
 
-document.getElementById("myCanvas").addEventListener("mousemove", function (e) {
-    console.log("aaaa");
-    
-    ctx.beginPath();
-    ctx.arc(e.x - 10, e.y - 10, 5, 0, 2 * Math.PI);
-    ctx.fillStyle = `black`
-    ctx.fill();
-
+document.getElementById("myCanvas").addEventListener("mouseup", function (e) {
+    botonPresionado = false; 
 });
 
+document.getElementById("myCanvas").addEventListener("mousemove", function (e) {
+    if (botonPresionado == true) { 
+        ctx.beginPath();
+        ctx.arc(e.x - 10, e.y - 10, 5, 0, 2 * Math.PI);
+        ctx.fillStyle = `black`;
+        ctx.fill();
+    }
+});
 
 
