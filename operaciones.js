@@ -2,6 +2,7 @@ const canvas = document.getElementById("myCanvas");
 const ctx = canvas.getContext("2d");
 
 //CIRCULOS
+/*
 ctx.beginPath();
 ctx.arc(150, 400, 120, 0, 2 * Math.PI);
 ctx.fillStyle = "orange";
@@ -156,6 +157,55 @@ document.getElementById("myCanvas").addEventListener("mousemove", function (e) {
         ctx.fillStyle = `black`;
         ctx.fill();
     }
+});*/
+
+var super_x = 100;
+var super_y = 100;
+
+paint();
+
+document.addEventListener("keypress", function (e) {
+    var tecla_presionada = e.keyCode;
+    console.log("tecla: " + tecla_presionada)
+
+    //a = 97 s = 115 d = 100 w = 119
+    switch (tecla_presionada) {
+        case 97:
+            super_x -= 10;
+            console.log(super_x);
+
+            if(super_x == -110){
+                super_x = 1500
+                
+            }
+            break;
+        case 115:
+            super_y += 10;
+            break;
+        case 100:
+            super_x += 10;
+            if(super_x == 1500){
+                super_x = 0
+                
+            }
+            break;
+        case 119:
+            super_y -= 10;
+            break;
+
+    }
+
+    paint()
+   
+
 });
 
+function paint(){
+    ctx.clearRect(0, 0, canvas.width, canvas.height)
+
+    ctx.fillStyle = `black`;
+    ctx.fillRect(super_x, super_y, 100, 100);
+    ctx.fill();
+    
+}
 
