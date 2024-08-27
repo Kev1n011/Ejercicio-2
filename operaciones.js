@@ -181,16 +181,25 @@ document.addEventListener("keypress", function (e) {
             break;
         case 115:
             super_y += 10;
+            console.log(super_y);
+            if(super_y == 800){
+                super_y = -100;
+                
+            }
             break;
         case 100:
             super_x += 10;
             if(super_x == 1500){
-                super_x = 0
+                super_x = -100;
                 
             }
             break;
         case 119:
             super_y -= 10;
+            if(super_y == -110){
+                super_y = 800;
+                
+            }
             break;
 
     }
@@ -208,4 +217,3 @@ function paint(){
     ctx.fill();
     
 }
-
