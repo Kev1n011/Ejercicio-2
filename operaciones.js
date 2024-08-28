@@ -162,6 +162,7 @@ document.getElementById("myCanvas").addEventListener("mousemove", function (e) {
 var super_x = 100;
 var super_y = 100;
 var direccion = "";
+var velocidad = 5;
 
 paint();
 
@@ -182,6 +183,11 @@ document.addEventListener("keypress", function (e) {
             break;
         case 119:
             direccion = "arriba";
+            
+            break;
+        case 32:
+            velocidad +=10;
+           
             break;
 
     }
@@ -194,38 +200,41 @@ document.addEventListener("keypress", function (e) {
 function update(){
     switch (direccion){
         case "arriba":
-            super_y -= 10;
-            if(super_y == -110){
+           
+          
+            super_y -= velocidad;
+            if(super_y < -110){
                 super_y = 800;
                 
             }
             break;
         case "abajo":
-            super_y += 10;
+            super_y += velocidad;
             console.log(super_y);
-            if(super_y == 800){
+            if(super_y > 800){
                 super_y = -100;
                 
             }
             break;
         case "izquierda":
-            super_x -= 10;
+            super_x -= velocidad;
             console.log(super_x);
 
-            if(super_x == -110){
+            if(super_x < -110){
                 super_x = 1500
                 
             }
             break;
         case "derecha":
-            super_x += 10;
-            if(super_x == 1500){
+            super_x += velocidad;
+            if(super_x > 1500){
                 super_x = -100;
                 
             }
-            break;
+      
             
     }
+    
 
 }
 
@@ -233,7 +242,7 @@ function paint(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     ctx.fillStyle = `black`;
-    ctx.fillRect(super_x, super_y, 100, 100);
+    ctx.fillRect(super_x + velocidad, super_y, 100, 100);
     ctx.fill();
     update();
     requestAnimationFrame(paint)           
@@ -241,7 +250,16 @@ function paint(){
     
 }
 
-requestAnimationFrame(paint)           
+requestAnimationFrame(paint)       
+
+window.requestAnimationFrame = (function () {
+    return window.requestAnimationFrame ||
+        window.webkitRequestAnimationFrame ||
+        window.mozRequestAnimationFrame ||
+        function (callback) {
+            window.setTimeout(callback, 17);
+        };
+}());
 
 
 
