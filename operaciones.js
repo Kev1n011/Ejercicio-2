@@ -161,6 +161,7 @@ document.getElementById("myCanvas").addEventListener("mousemove", function (e) {
 
 var super_x = 100;
 var super_y = 100;
+var direccion = "";
 
 paint();
 
@@ -171,6 +172,43 @@ document.addEventListener("keypress", function (e) {
     //a = 97 s = 115 d = 100 w = 119
     switch (tecla_presionada) {
         case 97:
+            direccion = "izquierda";      
+            break;
+        case 115:
+            direccion = "abajo"; 
+            break;
+        case 100:
+            direccion = "derecha";   
+            break;
+        case 119:
+            direccion = "arriba";
+            break;
+
+    }
+
+  
+   
+
+});
+
+function update(){
+    switch (direccion){
+        case "arriba":
+            super_y -= 10;
+            if(super_y == -110){
+                super_y = 800;
+                
+            }
+            break;
+        case "abajo":
+            super_y += 10;
+            console.log(super_y);
+            if(super_y == 800){
+                super_y = -100;
+                
+            }
+            break;
+        case "izquierda":
             super_x -= 10;
             console.log(super_x);
 
@@ -179,35 +217,17 @@ document.addEventListener("keypress", function (e) {
                 
             }
             break;
-        case 115:
-            super_y += 10;
-            console.log(super_y);
-            if(super_y == 800){
-                super_y = -100;
-                
-            }
-            break;
-        case 100:
+        case "derecha":
             super_x += 10;
             if(super_x == 1500){
                 super_x = -100;
                 
             }
             break;
-        case 119:
-            super_y -= 10;
-            if(super_y == -110){
-                super_y = 800;
-                
-            }
-            break;
-
+            
     }
 
-    paint()
-   
-
-});
+}
 
 function paint(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
@@ -215,5 +235,19 @@ function paint(){
     ctx.fillStyle = `black`;
     ctx.fillRect(super_x, super_y, 100, 100);
     ctx.fill();
+    update();
+    requestAnimationFrame(paint)           
+
     
 }
+
+requestAnimationFrame(paint)           
+
+
+
+/*
+update
+req
+
+
+req*/
