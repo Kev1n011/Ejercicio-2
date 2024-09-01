@@ -157,12 +157,10 @@ document.getElementById("myCanvas").addEventListener("mousemove", function (e) {
         ctx.fillStyle = `black`;
         ctx.fill();
     }
-});*/
+});
 
 var super_x = 100;
 var super_y = 100;
-var direccion = "";
-var velocidad = 5;
 
 paint();
 
@@ -173,99 +171,129 @@ document.addEventListener("keypress", function (e) {
     //a = 97 s = 115 d = 100 w = 119
     switch (tecla_presionada) {
         case 97:
-            direccion = "izquierda";      
-            break;
-        case 115:
-            direccion = "abajo"; 
-            break;
-        case 100:
-            direccion = "derecha";   
-            break;
-        case 119:
-            direccion = "arriba";
-            
-            break;
-        case 32:
-            velocidad +=10;
-           
-            break;
-
-    }
-
-  
-   
-
-});
-
-function update(){
-    switch (direccion){
-        case "arriba":
-           
-          
-            super_y -= velocidad;
-            if(super_y < -110){
-                super_y = 800;
-                
-            }
-            break;
-        case "abajo":
-            super_y += velocidad;
-            console.log(super_y);
-            if(super_y > 800){
-                super_y = -100;
-                
-            }
-            break;
-        case "izquierda":
-            super_x -= velocidad;
+            super_x -= 10;
             console.log(super_x);
 
-            if(super_x < -110){
+            if(super_x == -110){
                 super_x = 1500
                 
             }
             break;
-        case "derecha":
-            super_x += velocidad;
-            if(super_x > 1500){
+        case 115:
+            super_y += 10;
+            console.log(super_y);
+            if(super_y == 800){
+                super_y = -100;
+                
+            }
+            break;
+        case 100:
+            super_x += 10;
+            if(super_x == 1500){
                 super_x = -100;
                 
             }
-      
-            
-    }
-    
+            break;
+        case 119:
+            super_y -= 10;
+            if(super_y == -110){
+                super_y = 800;
+                
+            }
+            break;
 
-}
+    }
+
+    paint()
+   
+
+});
 
 function paint(){
     ctx.clearRect(0, 0, canvas.width, canvas.height)
 
     ctx.fillStyle = `black`;
-    ctx.fillRect(super_x + velocidad, super_y, 100, 100);
+    ctx.fillRect(super_x, super_y, 100, 100);
     ctx.fill();
-    update();
-    requestAnimationFrame(paint)           
-
     
-}
+}*/
 
-requestAnimationFrame(paint)       
+document.getElementById("myCanvas").addEventListener("mouseup", function (e) {
+    console.log("Coordenadas:", e.x, e.y);
+});
 
-window.requestAnimationFrame = (function () {
-    return window.requestAnimationFrame ||
-        window.webkitRequestAnimationFrame ||
-        window.mozRequestAnimationFrame ||
-        function (callback) {
-            window.setTimeout(callback, 17);
-        };
-}());
+//CARA
+ctx.beginPath();
+ctx.arc(600, 120, 120, 2.1, 2.48 * Math.PI);
+ctx.fillStyle = "#ffe6b3";
+ctx.fill();
+
+//CABELLO
+ctx.beginPath();
+ctx.arc(600, 120, 120, 1.2 * Math.PI, 2 * Math.PI);
+ctx.fillStyle = "black";
+ctx.fill();
+
+//CUELLO
+ctx.fillStyle = "#ffe6b3";
+ctx.fillRect(545, 200, 100, 100);
+
+//OJOS
+ctx.beginPath();
+ctx.arc(650, 100, 20, 0, 2 * Math.PI);
+ctx.fillStyle = "black";
+ctx.fill();
+
+ctx.beginPath();
+ctx.arc(550, 100, 20, 0, 2 * Math.PI);
+ctx.fillStyle = "black";
+ctx.fill();
+
+//BOCA
+ctx.beginPath();
+ctx.arc(600, 105, 100, .8, 2.4);
+ctx.fillStyle = "black";
+ctx.fill();
+
+// TORSO
+ctx.fillStyle = "#545327";
+ctx.fillRect(475, 300, 250, 320);
+
+// BRAZOS
+ctx.strokeStyle = "#ffe6b3";
+ctx.lineWidth = 50;
+
+// Brazo derecho
+ctx.beginPath();
+ctx.moveTo(705, 300);
+ctx.lineTo(820, 600);
+ctx.stroke();
+
+// Brazo izquierdo
+ctx.beginPath();
+ctx.moveTo(482, 300);
+ctx.lineTo(380, 600);
+ctx.stroke();
+
+// PIERNAS
+ctx.strokeStyle = "#34373b";
+ctx.lineWidth = 60;
+
+// Pierna derecha
+ctx.beginPath();
+ctx.moveTo(650, 620);
+ctx.lineTo(650, 870);
+ctx.stroke();
+
+// Pierna izquierda
+ctx.beginPath();
+ctx.moveTo(540, 620);
+ctx.lineTo(540, 870);
+ctx.stroke();
 
 
 
-/*
-update
-req
 
 
-req*/
+
+
