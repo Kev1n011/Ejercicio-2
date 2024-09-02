@@ -7,125 +7,110 @@ document.getElementById("myCanvas").addEventListener("mouseup", function (e) {
 });
 
 //fondo del canvas
-ctx.fillStyle = '#2804a4';
+ctx.fillStyle = '#78b2ff';
 ctx.fillRect(0, 0, canvas.width, canvas.height - 100);
 
 
 
-ctx.beginPath();
-ctx.lineWidth = 3;
-ctx.strokeStyle = "#000000";
-ctx.strokeRect(0, 600, 1500, 200);
-
-let x_cubos = 0;
-let y_cubos = 600;
-
-//Crear cubos debajo del suelo
-let bandera = 0;
-while (bandera < 3){
-    for (let i = 0; i <= 22; i++){
-        ctx.beginPath();
-        if (i % 2 === 0) {
-            ctx.fillStyle = "#622204"; 
-        } else {
-            ctx.fillStyle = "#c36204"; 
-        }
-        ctx.fill()
-        ctx.fillRect(x_cubos, y_cubos, 68, 68);
-    
-        ctx.strokeStyle = "black"; 
-        ctx.lineWidth = 2; 
-        ctx.strokeRect(x_cubos, y_cubos, 68, 68);
-    
-        x_cubos += 68;
-    }
-    bandera++;
-    y_cubos += 68;
-    x_cubos = 0;
-
-}
-
-//Lineas del suelo
+//Suelo
 ctx.beginPath();
 ctx.fillStyle = "#08ff1c";
-ctx.fillRect(0, 525, 1500, 25);
+ctx.fillRect(0, 725, 1500, 25);
 
 ctx.beginPath();
 ctx.fillStyle = "#0aad18";
-ctx.fillRect(0, 550, 1500, 25);
+ctx.fillRect(0, 750, 1500, 25);
 
 ctx.beginPath();
 ctx.fillStyle = "#03540a";
-ctx.fillRect(0, 575, 1500, 25);
+ctx.fillRect(0, 775, 1500, 25);
 
-
+//Casa
 ctx.beginPath();
-ctx.fillStyle = "#622204";
-ctx.fillRect(1000, 200, 25, 325);
-
-// Tallo
-ctx.beginPath();
-ctx.strokeStyle = "#4CAF50"; // Color verde
-ctx.lineWidth = 10;
-ctx.moveTo(1200, 525); // Comienza desde el suelo
-ctx.lineTo(1200, 400); // Altura del tallo
-ctx.stroke();
-
-// Círculo del girasol
-ctx.beginPath();
-ctx.arc(1200, 400, 30, 0, Math.PI * 2, true); // Círculo central en la parte superior del tallo
-ctx.fillStyle = "#FFD700"; // Color amarillo para el centro de la flor
-ctx.fill();
-ctx.strokeStyle = "#DAA520"; // Color dorado para el borde del centro de la flor
-ctx.lineWidth = 6;
-ctx.stroke();
-
-ctx.beginPath();
-ctx.moveTo(1200, 450); 
-ctx.quadraticCurveTo(1150, 420, 1170, 470);
-ctx.quadraticCurveTo(1185, 480, 1200, 450); 
-ctx.fillStyle = "#4CAF50"; 
-ctx.fill();
-ctx.strokeStyle = "#388E3C"; 
+ctx.fillStyle = "#f7ff8a";
+ctx.fill()
+ctx.fillRect(500, 375, 550, 350);
+ctx.strokeStyle = "black";
 ctx.lineWidth = 2;
+ctx.strokeRect(500, 375, 550, 350);
+
+//Puerta
+ctx.beginPath();
+ctx.fillStyle = "red";
+ctx.fill()
+ctx.fillRect(720, 525, 115, 200);
+ctx.strokeStyle = "black";
+ctx.lineWidth = 3.5;
+ctx.strokeRect(720, 525, 115, 200);
+
+//Techo
+ctx.beginPath();
+ctx.moveTo(400, 425);
+ctx.lineTo(1150, 425);
+ctx.lineTo(775, 100);  
+ctx.closePath();
+ctx.fillStyle = "red";  
+ctx.fill();              
+ctx.lineWidth = 2;         
+ctx.stroke();  
+
+
 ctx.stroke();
 
-// Hoja derecha
+function dibujar_ventana(x, y) {
+   
+    ctx.beginPath();
+    ctx.fillStyle = "white";
+    ctx.fillRect(x, y, 100, 100);
+
+    // Primer stroke
+    ctx.strokeStyle = "black";
+    ctx.lineWidth = 4;
+    ctx.strokeRect(x, y, 100, 100); 
+
+    // Segundo stroke
+    ctx.lineWidth = 2;
+    ctx.strokeRect(x - 5, y - 5, 110, 110); 
+
+    //Diseño de cruz para la ventana
+    ctx.beginPath();
+    ctx.moveTo(x + 50, y); 
+    ctx.lineTo(x + 50, y + 100);
+    ctx.moveTo(x, y + 50); 
+    ctx.lineTo(x + 100, y + 50);
+    ctx.lineWidth = 4;
+    ctx.stroke();
+}
+
+dibujar_ventana(900, 450);
+dibujar_ventana(550,450);
+
+//Sol
 ctx.beginPath();
-ctx.moveTo(1200, 450); 
-ctx.quadraticCurveTo(1250, 420, 1230, 470); 
-ctx.quadraticCurveTo(1215, 480, 1200, 450); 
-ctx.fillStyle = "#4CAF50"; 
+ctx.arc(1300, 120, 90, 0, Math.PI * 2); 
+ctx.fillStyle = "yellow";
 ctx.fill();
-ctx.strokeStyle = "#388E3C"; 
-ctx.lineWidth = 2;
+ctx.strokeStyle = "orange";
+ctx.lineWidth = 4;
 ctx.stroke();
 
+function dibujar_nube(x, y) {
+    ctx.beginPath();
+    ctx.arc(x, y, 30, Math.PI * 0.5, Math.PI * 1.5); 
+    ctx.arc(x + 40, y - 30, 40, Math.PI * 1, Math.PI * 2);
+    ctx.arc(x + 80, y, 30, Math.PI * 1.5, Math.PI * 0.5); 
+    ctx.arc(x + 40, y + 30, 30, Math.PI * 0, Math.PI * 1);
+    ctx.closePath();
+    ctx.fillStyle = "white";
+    ctx.fill();
+    ctx.strokeStyle = "lightgray";
+    ctx.lineWidth = 2;
+    ctx.stroke();
+}
 
-
-// Anillos
-ctx.lineWidth = 5;
-ctx.beginPath();
-ctx.arc(300, 475, 30, 0, Math.PI * 2);
-ctx.strokeStyle = "#fff833"; 
-ctx.stroke(); 
-ctx.closePath();
-
-ctx.beginPath();
-ctx.arc(400, 475, 30, 0, Math.PI * 2);
-ctx.strokeStyle = "#fff833"; 
-ctx.stroke(); 
-ctx.closePath();
-
-ctx.beginPath();
-ctx.arc(500, 475, 30, 0, Math.PI * 2);
-ctx.strokeStyle = "#fff833";
-ctx.stroke(); 
-ctx.closePath();
-
-
-
-
+dibujar_nube(200, 150);
+dibujar_nube(500, 100);
+dibujar_nube(1000,100);
 
 
 
