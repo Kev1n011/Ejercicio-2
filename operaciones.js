@@ -179,13 +179,36 @@ class Rectangulo {
     }
 
     colisionaCon(otro) {
-        return (
-            this.x < otro.x + otro.ancho &&
+        if (this.x < otro.x + otro.ancho &&
             this.x + this.ancho > otro.x &&
             this.y < otro.y + otro.alto &&
-            this.y + this.alto > otro.y
-        );
+            this.y + this.alto > otro.y) {
+            return true;
+        } else {
+            return false;
+        }
     }
+
+    manejarColision(otro) {
+        if (this.colisionaCon(otro)) {
+            var colisionPorIzquierda = this.x + this.ancho - otro.x;
+            var colisionPorDerecha = otro.x + otro.ancho - this.x;
+            var colisionPorArriba = this.y + this.alto - otro.y;
+            var colisionPorAbajo = otro.y + otro.alto - this.y;
+
+            if (colisionPorIzquierda < colisionPorDerecha && colisionPorIzquierda < colisionPorArriba && colisionPorIzquierda < colisionPorAbajo) {
+                this.x = otro.x - this.ancho;
+            } else if (colisionPorDerecha < colisionPorIzquierda && colisionPorDerecha < colisionPorArriba && colisionPorDerecha < colisionPorAbajo) {
+                this.x = otro.x + otro.ancho;
+            } else if (colisionPorArriba < colisionPorIzquierda && colisionPorArriba < colisionPorDerecha && colisionPorArriba < colisionPorAbajo) {
+                this.y = otro.y - this.alto;
+            } else if (colisionPorAbajo < colisionPorIzquierda && colisionPorAbajo < colisionPorDerecha && colisionPorAbajo < colisionPorArriba) {
+                this.y = otro.y + otro.alto;
+            }
+        }
+    }
+
+    
     
 
     teletransportar() {
@@ -193,29 +216,14 @@ class Rectangulo {
         this.y = Math.random() * (canvas.height - this.alto);
     }
 
-    ajustarPosicion(direccion) {
-        switch (direccion) {
-            case "arriba":
-                this.y += velocidad;
-                break;
-            case "abajo":
-                this.y -= velocidad;
-                break;
-            case "izquierda":
-                this.x += velocidad;
-                break;
-            case "derecha":
-                this.x -= velocidad;
-                break;
-        }
-    }
+    
     
 }
 
 // Crear instancias de Rectangulo
 const player = new Rectangulo(super_x, super_y, 100, 100, "red");
-const cuadrado = new Rectangulo(230, 130, 100, 100, "rgba(0, 0, 255, 0.5)");
-const obstaculo = new Rectangulo(340, 240, 100, 100, "green")
+const cuadrado = new Rectangulo(230, 130, 100, 100, "yellow");
+const obstaculo = new Rectangulo(340, 240, 800, 100, "green")
 
 paint();
 
@@ -292,6 +300,8 @@ function update() {
     if (player.colisionaCon(cuadrado)) {
         cuadrado.teletransportar();
     }
+    player.manejarColision(obstaculo);
+
 
    
     
