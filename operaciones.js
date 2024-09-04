@@ -165,6 +165,8 @@ var direccion = "";
 var velocidad = 5;
 var obstaculos = [];
 
+var pausa = false;
+
 class Rectangulo {
     constructor(x, y, ancho, alto, color) {
         this.x = x;
@@ -259,7 +261,7 @@ document.addEventListener("keypress", function (e) {
 
             break;
         case 32:
-            velocidad += 10;
+            pausa = !pausa;
 
             break;
 
@@ -271,57 +273,61 @@ document.addEventListener("keypress", function (e) {
 });
 
 function update() {
-    switch (direccion) {
-        case "arriba":
-
-
-            player.y -= velocidad;
-            if (player.y < -110) {
-                player.y = 800;
-
-            }
-            break;
-        case "abajo":
-            player.y += velocidad;
-            console.log(super_y);
-            if (player.y > 800) {
-                player.y = -100;
-
-            }
-            break;
-        case "izquierda":
-            player.x -= velocidad;
-            console.log(player.x);
-
-            if (player.x < -110) {
-                player.x = 1500
-
-            }
-            break;
-        case "derecha":
-            player.x += velocidad;
-            if (player.x > 1500) {
-                player.x = -100;
-
-            }
-
-
-    }
+    if(!pausa){
+        switch (direccion) {
+            case "arriba":
     
-
-    if (player.colisionaCon(cuadrado)) {
-        cuadrado.teletransportar();
-    }
-    player.manejarColision(obstaculo);
-
-    obstaculos.forEach(function (obstaculo, indice, array) {
-        player.manejarColision(obstaculo)
+    
+                player.y -= velocidad;
+                if (player.y < -110) {
+                    player.y = 800;
+    
+                }
+                break;
+            case "abajo":
+                player.y += velocidad;
+                console.log(super_y);
+                if (player.y > 800) {
+                    player.y = -100;
+    
+                }
+                break;
+            case "izquierda":
+                player.x -= velocidad;
+                console.log(player.x);
+    
+                if (player.x < -110) {
+                    player.x = 1500
+    
+                }
+                break;
+            case "derecha":
+                player.x += velocidad;
+                if (player.x > 1500) {
+                    player.x = -100;
+    
+                }
+    
+    
+        }
         
-      });
     
+        if (player.colisionaCon(cuadrado)) {
+            cuadrado.teletransportar();
+        }
+        player.manejarColision(obstaculo);
+    
+        obstaculos.forEach(function (obstaculo, indice, array) {
+            player.manejarColision(obstaculo)
+            
+          });
+        
+    
+    
+       
+        
 
-
-   
+    }
     
 
 
@@ -340,6 +346,12 @@ function paint() {
         ctx.fillRect(obstaculo.x, obstaculo.y, obstaculo.ancho, obstaculo.alto)
         
       });
+    if (pausa){
+        ctx.fillStyle = "rgba(100,100,100,.5)"
+        ctx.fillRect(0,0, canvas.width, canvas.height)
+        ctx.fillStyle = "red";
+        ctx.fillText("Pausa", canvas.width/2, canvas.height/2);
+    }
     update();
     requestAnimationFrame(paint)
 
