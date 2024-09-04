@@ -163,6 +163,7 @@ var super_x = 100;
 var super_y = 100;
 var direccion = "";
 var velocidad = 5;
+var obstaculos = [];
 
 class Rectangulo {
     constructor(x, y, ancho, alto, color) {
@@ -208,8 +209,7 @@ class Rectangulo {
         }
     }
 
-    
-    
+   
 
     teletransportar() {
         this.x = Math.random() * (canvas.width - this.ancho);
@@ -220,11 +220,23 @@ class Rectangulo {
     
 }
 
+
+obstaculos.push(new Rectangulo(100,100,100,100))
+obstaculos.push(new Rectangulo(1000,100,100,100))
+obstaculos.push(new Rectangulo(1000,500,100,1000))
+
+
+
+
+
 // Crear instancias de Rectangulo
 const player = new Rectangulo(super_x, super_y, 100, 100, "red");
 const cuadrado = new Rectangulo(230, 130, 100, 100, "yellow");
 const obstaculo = new Rectangulo(340, 240, 800, 100, "green")
 
+obstaculos.forEach(function (obstaculo, indice, array) {
+    console.log(obstaculo, indice);
+  });
 paint();
 
 document.addEventListener("keypress", function (e) {
@@ -302,6 +314,12 @@ function update() {
     }
     player.manejarColision(obstaculo);
 
+    obstaculos.forEach(function (obstaculo, indice, array) {
+        player.manejarColision(obstaculo)
+        
+      });
+    
+
 
    
     
@@ -317,6 +335,11 @@ function paint() {
     player.dibujar();
     cuadrado.dibujar();
     obstaculo.dibujar();
+
+    obstaculos.forEach(function (obstaculo, indice, array) {
+        ctx.fillRect(obstaculo.x, obstaculo.y, obstaculo.ancho, obstaculo.alto)
+        
+      });
     update();
     requestAnimationFrame(paint)
 
