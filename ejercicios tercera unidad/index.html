@@ -5,6 +5,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+    <style>
+        input{
+            margin-left: 20px;
+        }
+    </style>
 </head>
 
 <body>
@@ -14,7 +19,7 @@
         <button @click="contador++"> {{contador}}</button>
         <form action="">
             <fieldset>
-                <label>Nombre   </label>
+                <label>Nombre </label>
                 <input placeholder="Escriba su nombre aquí..." v-model="nombre" />
                 <label> Bienvenido {{nombre}}</label>
             </fieldset>
@@ -38,7 +43,37 @@
 
         </form>
 
+        <h1>
+            hola
+        </h1>
+
+        <ul>
+            <li v-for="user in users">
+
+                Nombre: {{user.name}} 
+                Rol: {{user.rol}} 
+                Edad: {{user.edad}} 
+                Sexo: {{user.sexo}}
+
+            </li>
+        </ul>
+
+        <form action="">
+            <fieldset>
+                <label for="">Nombre</label>
+                <input type="text" placeholder="Nombre" v-model="name">
+                <input type="text" placeholder="rol" v-model="rol">
+                <input type="number" placeholder="Edad" v-model="edad">
+                <input type="text" placeholder="Sexo" v-model="sexo">
+            </fieldset>
+            <button v-on:click="plus" type="button"> Guardar</button>
+
+
+
+        </form>
+
     </div>
+
 
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
@@ -54,6 +89,25 @@
                 let resultado = ref(0)
                 let num1 = ref()
                 let num2 = ref()
+                let name, rol, edad, sexo = ref("")
+                
+
+                let users = ref([
+                    {
+                        "name": "Kevin",
+                        "rol": "Backend",
+                        "edad": "21",
+                        "sexo": "Masculino"
+                        
+                    },
+
+                    {
+                        "name": "Fernando",
+                        "rol": "Front",
+                        "edad": "22",
+                        "sexo": "Masculino"
+                    },
+                ])
 
 
 
@@ -64,9 +118,31 @@
                     num1,
                     num2,
                     resultado,
+                    name,
+                    rol,
+                    edad,
+                    sexo,
+                    users
 
                 }
             },
+
+            methods: {
+                plus() {
+                    this.users.push({
+                        name: this.name,
+                        rol: this.rol,
+                        edad: this.edad,
+                        sexo: this.sexo,
+
+                    });
+
+                    this.name = "";
+                    this.rol = "";
+                    this.edad = "";
+                    this.sexo = "";
+                }
+            }
 
 
         }).mount('#main')
