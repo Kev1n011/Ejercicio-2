@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <style>
+        input {
+            margin-left: 20px;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="main">
+        <h3>Hola aplicación {{name_app}}</h3>
+
+        <button @click="contador++"> {{contador}}</button>
+        <form action="">
+            <fieldset>
+                <label>Nombre </label>
+                <input placeholder="Escriba su nombre aquí..." v-model="nombre" />
+                <label> Bienvenido {{nombre}}</label>
+            </fieldset>
+        </form>
+
+
+
+        <hr>
+        <form action="">
+            <fieldset>
+                <input type="number" placeholder="Primer numero.." v-model="num1">
+
+                <input type="number" placeholder="Segundo numero.." v-model="num2">
+                <button v-on:click="resultado = num1 + num2" type="button">Sumar</button>
+
+                <label>Resultado: {{resultado}}</label>
+
+
+            </fieldset>
+
+
+        </form>
+
+        <h1>
+            hola
+        </h1>
+
+        <ul>
+            <li v-for="user in users">
+
+                Nombre: {{user.name}}
+                Rol: {{user.rol}}
+                Edad: {{user.edad}}
+                Sexo: {{user.sexo}}
+
+            </li>
+        </ul>
+
+        <form action="">
+            <fieldset>
+                <label for="">Nombre</label>
+                <input type="text" placeholder="Nombre" v-model="name">
+                <input type="text" placeholder="rol" v-model="rol">
+                <input type="number" placeholder="Edad" v-model="edad">
+                <input type="text" placeholder="Sexo" v-model="sexo">
+            </fieldset>
+            <button v-on:click="plus" type="button"> Guardar</button>
+
+
+
+        </form>
+
+        <form @submit.prevent="login">
+            <fieldset>
+                <label for="">Nombre</label>
+                <input type="text" placeholder="Nombre de usuario" v-model="nombre_usuario">
+                <input type="text" placeholder="Contraseña" v-model="contrasena">
+
+            </fieldset>
+            <button type="submit"> Guardar</button>
+
+
+
+        </form>
+
+
+    </div>
+
+
+
+    <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
+
+    <script>
+        
+        const { createApp, ref } = Vue
+
+        createApp({
+
+            setup() {
+                const name_app = ref('Hello vue!')
+                let nombre = ref("")
+                let resultado = ref(0)
+                let num1 = ref()
+                let num2 = ref()
+                let name, rol, edad, sexo = ref("")
+                let nombre_usuario, contrasena = ref("")
+
+
+                let users = ref([
+                    {
+                        "name": "Kevin",
+                        "rol": "Backend",
+                        "edad": "21",
+                        "sexo": "Masculino"
+
+                    },
+
+                    {
+                        "name": "Fernando",
+                        "rol": "Front",
+                        "edad": "22",
+                        "sexo": "Masculino"
+                    },
+                ])
+
+
+
+                return {
+                    name_app,
+                    contador: ref(0),
+                    nombre,
+                    num1,
+                    num2,
+                    resultado,
+                    name,
+                    rol,
+                    edad,
+                    sexo,
+                    users,
+                    nombre_usuario, contrasena
+
+                }
+            },
+
+            methods: {
+                plus() {
+                    this.users.push({
+                        name: this.name,
+                        rol: this.rol,
+                        edad: this.edad,
+                        sexo: this.sexo,
+
+                    });
+
+                    this.name = "";
+                    this.rol = "";
+                    this.edad = "";
+                    this.sexo = "";
+                },
+                login() {
+                    fetch('usuarios.json')
+                        .then(
+                            function (response) {
+                                if (this.nombre_usuario == "123") {
+                                    console.log("ENTRO");
+                                    return;
+                                }
+
+                                // Examine the text in the response
+                                response.json().then(function (data) {
+                                    console.log(data);
+                                });
+                            }
+                        )
+                        .catch(function (err) {
+                            console.log('Fetch Error :-S', err);
+                        });
+                }
+            }
+
+
+        }).mount('#main')
+    </script>
+
+</body>
+
+</html>
