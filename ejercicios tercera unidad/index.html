@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <style>
-        input{
+        input {
             margin-left: 20px;
         }
     </style>
@@ -43,16 +43,14 @@
 
         </form>
 
-        <h1>
-            hola
-        </h1>
+
 
         <ul>
             <li v-for="user in users">
 
-                Nombre: {{user.name}} 
-                Rol: {{user.rol}} 
-                Edad: {{user.edad}} 
+                Nombre: {{user.name}}
+                Rol: {{user.rol}}
+                Edad: {{user.edad}}
                 Sexo: {{user.sexo}}
 
             </li>
@@ -72,6 +70,24 @@
 
         </form>
 
+        <h1 v-if="sesion_iniciada">Bienvenido</h1>
+
+        <form @submit.prevent="login">
+            <fieldset>
+                <label for="">Nombre</label>
+                <input type="text" placeholder="Nombre de usuario" v-model="nombre_usuario">
+                <input type="text" placeholder="Contraseña" v-model="contrasena">
+
+            </fieldset>
+            <button type="submit"> Guardar</button>
+
+
+
+        </form>
+
+
+
+
     </div>
 
 
@@ -79,6 +95,7 @@
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
     <script>
+
         const { createApp, ref } = Vue
 
         createApp({
@@ -90,7 +107,9 @@
                 let num1 = ref()
                 let num2 = ref()
                 let name, rol, edad, sexo = ref("")
-                
+                let nombre_usuario, contrasena = ref("")
+                let sesion_iniciada = ref(false)
+
 
                 let users = ref([
                     {
@@ -98,7 +117,7 @@
                         "rol": "Backend",
                         "edad": "21",
                         "sexo": "Masculino"
-                        
+
                     },
 
                     {
@@ -122,7 +141,8 @@
                     rol,
                     edad,
                     sexo,
-                    users
+                    users,
+                    nombre_usuario, contrasena, sesion_iniciada
 
                 }
             },
@@ -141,6 +161,39 @@
                     this.rol = "";
                     this.edad = "";
                     this.sexo = "";
+                },
+                async login() {
+                    const url = "usuarios.json";
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            throw new Error(`Response status: ${response.status}`);
+                        }
+                        const json = await response.json();
+                        let usuarioEncontrado = false;
+                        json.forEach(usuario => {
+                            if (usuario.contrasena === this.contrasena && usuario.nombre_usuario === this.nombre_usuario) {
+                                usuarioEncontrado = true;
+                                this.sesion_iniciada = true;
+                                this.alerta_bienvenido()
+                            }
+                        });
+
+                        if (!usuarioEncontrado) {
+                            this.sesion_iniciada = false;
+                            this.alerta();
+                        }
+                    } catch (error) {
+                        console.error(error.message);
+                    }
+                },
+                alerta() {
+                    alert("Datos incorrectos");
+
+
+                },
+                alerta_bienvenido(){
+                    alert("Bienvennido: " + this.nombre_usuario);
                 }
             }
 
