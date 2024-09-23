@@ -5,92 +5,273 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
+
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/simple-line-icons/2.4.1/css/simple-line-icons.min.css"
+        rel="stylesheet">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
     <style>
-        input {
-            margin-left: 20px;
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            padding: 20px;
+        }
+
+        #main {
+            max-width: 650px;
+            margin: 0 auto;
+            background-color: #fff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1,
+        h2 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 40px;
+        }
+
+        .form-control {
+            width: 90%;
+            margin-left: 5%;
+            padding: 12px;
+            border-radius: 30px;
+            border: 1px solid #ccc;
+            font-size: 14px;
+            font-weight: lighter;
+            background-color: #ffffff;
+            transition: border-color 0.3s ease;
+            margin-bottom: 22px;
+        }
+
+        .form-control::placeholder {
+            color: #a3a3a3;
+        }
+
+        .form-control:focus {
+            border-color: #007bff;
+            background-color: #fff;
+        }
+
+        .btn {
+            padding: 10px;
+            border-radius: 30px;
+            font-size: 16px;
+            font-weight: bold;
+            color: #fff;
+            background-color: #007bff;
+            border: none;
+            width: 90%;
+            margin-left: 5%;
+            margin-top: 28px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn:hover {
+            background-color: #0056b3;
+        }
+
+        .create-account {
+            background-color: #21c8f1;
+        }
+
+        .create-account:hover {
+            background-color: #138496;
+        }
+
+        .login-account {
+            background-color: #17a2b8;
+        }
+
+        .login-account:hover {
+            background-color: #138496;
+        }
+
+        .boton_regreso {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .boton_regreso button {
+            text-align: center;
+            padding: 10px 20px;
+            border-radius: 5px;
+            font-size: 16px;
+            color: #fff;
+            background-color: #dc3545;
+            border: none;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .boton_regreso button:hover {
+            background-color: #c82333;
+        }
+
+        .table {
+            width: 100%;
+            margin-top: 20px;
+            border-collapse: collapse;
+        }
+
+        .table thead {
+            background-color: #007bff;
+            color: #fff;
+        }
+
+        .table th,
+        .table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+        }
+
+        .table tbody tr:nth-child(even) {
+            background-color: #f2f2f2;
+        }
+
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.3);
+            width: 300px;
+            position: relative;
+        }
+
+        .modal-content h3 {
+            margin-bottom: 15px;
+            font-size: 18px;
+        }
+
+        .modal-content button {
+            padding: 10px 20px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 14px;
+        }
+
+        .modal-content button:hover {
+            background-color: #0056b3;
         }
     </style>
+
+
+
+
 </head>
 
 <body>
     <div id="main">
-        <h3>Hola aplicación {{name_app}}</h3>
-
-        <button @click="contador++"> {{contador}}</button>
-        <form action="">
-            <fieldset>
-                <label>Nombre </label>
-                <input placeholder="Escriba su nombre aquí..." v-model="nombre" />
-                <label> Bienvenido {{nombre}}</label>
-            </fieldset>
-        </form>
-
-
-
-        <hr>
-        <form action="">
-            <fieldset>
-                <input type="number" placeholder="Primer numero.." v-model="num1">
-
-                <input type="number" placeholder="Segundo numero.." v-model="num2">
-                <button v-on:click="resultado = num1 + num2" type="button">Sumar</button>
-
-                <label>Resultado: {{resultado}}</label>
-
-
-            </fieldset>
-
-
-        </form>
-
-
-
-        <ul>
-            <li v-for="user in users">
-
-                Nombre: {{user.name}}
-                Rol: {{user.rol}}
-                Edad: {{user.edad}}
-                Sexo: {{user.sexo}}
-
-            </li>
-        </ul>
-
-        <form action="">
-            <fieldset>
-                <label for="">Nombre</label>
-                <input type="text" placeholder="Nombre" v-model="name">
-                <input type="text" placeholder="rol" v-model="rol">
-                <input type="number" placeholder="Edad" v-model="edad">
-                <input type="text" placeholder="Sexo" v-model="sexo">
-            </fieldset>
-            <button v-on:click="plus" type="button"> Guardar</button>
-
-
-
-        </form>
 
         <h1 v-if="sesion_iniciada">Bienvenido</h1>
 
-        <form @submit.prevent="login">
-            <fieldset>
-                <label for="">Nombre</label>
-                <input type="text" placeholder="Nombre de usuario" v-model="nombre_usuario">
-                <input type="text" placeholder="Contraseña" v-model="contrasena">
+        <div class="registration-login-form">
+            <div v-if="!registroCompleto">
+                <h2>Formulario de Registro</h2>
+                <form @submit.prevent="insertar_datos">
+                    <div class="form-group">
+                        <input type="text" class="form-control item" id="nombre_usuario" placeholder="Nombre de usuario"
+                            required v-model="nombre_usuario">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control item" id="contrasena" placeholder="Contraseña"
+                            required v-model="contrasena">
+                    </div>
+                    <div class="form-group">
+                        <input type="number" class="form-control item" id="edad" placeholder="Edad" required
+                            v-model="age">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control item" id="genero" placeholder="Género" required
+                            v-model="gender">
+                    </div>
+                    <div class="form-group">
+                        <input type="text" class="form-control item" id="compania" placeholder="Compañía" required
+                            v-model="company">
+                    </div>
+                    <div class="form-group">
+                        <input type="email" class="form-control item" id="email" placeholder="Correo electrónico"
+                            required v-model="email">
+                    </div>
+                    <div class="form-group">
+                        <button type="submit" class="btn btn-block create-account">Registrar usuario</button>
+                    </div>
+                </form>
+            </div>
 
-            </fieldset>
-            <button type="submit"> Guardar</button>
+            <div v-if="registroCompleto && !mostrar_tabla">
+                <h2>Formulario de Login</h2>
+                <form @submit.prevent="login">
+                    <div class="form-group">
+                        <input type="email" class="form-control item" id="login_email" placeholder="Correo electrónico"
+                            required v-model="email">
+                    </div>
+                    <div class="form-group">
+                        <input type="password" class="form-control item" id="login_contrasena" placeholder="Contraseña"
+                            required v-model="contrasena">
+                    </div>
+                    <div class="form-group">
+                        <button @click="crear_tabla" type="submit" class="btn btn-block login-account">Iniciar
+                            sesión</button>
+                    </div>
+                </form>
+            </div>
+        </div>
 
 
 
-        </form>
+        <table v-if="mostrar_tabla" class="table table-bordered mt-4">
 
+            <thead class="thead-dark">
+                <tr>
+                    <th>Nombre de usuario</th>
+                    <th>Edad</th>
+                    <th>Género</th>
+                    <th>Email</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr v-for="usuario in nuevoUsuario" :key="usuario.email">
+                    <td>{{ usuario.nombre_usuario }}</td>
+                    <td>{{ usuario.age }}</td>
+                    <td>{{ usuario.gender }}</td>
+                    <td>{{ usuario.email }}</td>
+                </tr>
+            </tbody>
+        </table>
 
+        <div v-if="mostrar_tabla" class="boton_regreso">
+            <button @click="volver_registro" type="button">Regresar</button>
+        </div>
 
+        <div id="myModal" class="modal">
+            <div class="modal-content">
+                <h3 id="modal-message">Mensaje de alerta</h3>
+                <button id="close-modal">Cerrar</button>
+            </div>
+        </div>
 
     </div>
-
-
 
     <script src="https://unpkg.com/vue@3/dist/vue.global.js"></script>
 
@@ -107,8 +288,11 @@
                 let num1 = ref()
                 let num2 = ref()
                 let name, rol, edad, sexo = ref("")
-                let nombre_usuario, contrasena = ref("")
+                let nombre_usuario, contrasena, age, gender, company, email = ref("")
                 let sesion_iniciada = ref(false)
+                let datos_llenados = ref(false)
+                let registroCompleto = ref(false)
+                let mostrar_tabla = ref(false)
 
 
                 let users = ref([
@@ -128,6 +312,10 @@
                     },
                 ])
 
+                const nuevoUsuario = [];
+
+
+
 
 
                 return {
@@ -142,13 +330,15 @@
                     edad,
                     sexo,
                     users,
-                    nombre_usuario, contrasena, sesion_iniciada
+                    nombre_usuario, contrasena, contrasena, age, gender, company, email, sesion_iniciada, nuevoUsuario, datos_llenados,
+                    registroCompleto
 
                 }
             },
 
             methods: {
                 plus() {
+
                     this.users.push({
                         name: this.name,
                         rol: this.rol,
@@ -163,6 +353,8 @@
                     this.sexo = "";
                 },
                 async login() {
+
+
                     const url = "usuarios.json";
                     try {
                         const response = await fetch(url);
@@ -171,35 +363,114 @@
                         }
                         const json = await response.json();
                         let usuarioEncontrado = false;
-                        json.forEach(usuario => {
-                            if (usuario.contrasena === this.contrasena && usuario.nombre_usuario === this.nombre_usuario) {
+                        this.nuevoUsuario.forEach(usuario => {
+                            if (usuario.contrasena === this.contrasena && usuario.email === this.email) {
                                 usuarioEncontrado = true;
                                 this.sesion_iniciada = true;
-                                this.alerta_bienvenido()
+                                this.alerta("Sesión iniciada")
+                                this.mostrar_tabla = true
+                                console.log(this.mostrar_tabla)
                             }
                         });
 
                         if (!usuarioEncontrado) {
                             this.sesion_iniciada = false;
-                            this.alerta();
+                            this.alerta("Datos incorrectos");
                         }
                     } catch (error) {
                         console.error(error.message);
                     }
+
+                    this.email = "";
+                    this.contrasena = "";
+
                 },
-                alerta() {
-                    alert("Datos incorrectos");
+
+                async insertar_datos() {
+                    const url = "usuarios.json";
+                    try {
+                        const response = await fetch(url);
+                        if (!response.ok) {
+                            throw new Error(`Response status: ${response.status}`);
+                        }
+                        const json = await response.json();
+                        if (!this.datos_llenados) {
+                            json.forEach(element => {
+                                this.nuevoUsuario.push(element)
+
+                            });
+                            this.datos_llenados = true;
+
+                        }
+                        this.nuevoUsuario.push({
+                            nombre_usuario: this.nombre_usuario,
+                            contrasena: this.contrasena,
+                            age: this.age,
+                            gender: this.gender,
+                            company: this.company,
+                            email: this.email
+                        });
+                        //json.push(this.nuevoUsuario);
+
+                        localStorage.setItem('usuarios', JSON.stringify(this.nuevoUsuario));
+                        this.alerta("Rgeistro existoso")
+                        this.registroCompleto = true
+
+                        console.log('Datos del JSON:', this.nuevoUsuario);
+                    } catch (error) {
+                        console.error(error.message);
+                    }
+
+                    this.nombre_usuario = "";
+                    this.contrasena = "";
+                    this.age = "";
+                    this.gender = "";
+                    this.company = "";
+                    this.email = "";
 
 
+
                 },
-                alerta_bienvenido(){
-                    alert("Bienvennido: " + this.nombre_usuario);
+
+
+
+                mostrarModal(mensaje) {
+                    const modal = document.getElementById('myModal');
+                    const mensaje_modal = document.getElementById('modal-message');
+                    const cerrar_modal = document.getElementById('close-modal');
+
+                    mensaje_modal.textContent = mensaje;
+
+                    modal.style.display = 'flex';
+
+                    cerrar_modal.addEventListener('click', () => {
+                        modal.style.display = 'none';
+                    });
+                },
+
+                alerta(texto) {
+                    this.mostrarModal(texto);
+                },
+
+                alerta_bienvenido() {
+                    this.mostrarModal("Bienvenido");
+                },
+                volver_registro() {
+                    this.registroCompleto = false;
+                    this.mostrar_tabla = false;
+                    this.sesion_iniciada = false;
                 }
             }
 
 
+
+
         }).mount('#main')
     </script>
+
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.2.1.min.js"></script>
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.15/jquery.mask.min.js"></script>
 
 </body>
 
