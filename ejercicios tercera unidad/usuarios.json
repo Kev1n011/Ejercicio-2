@@ -3,7 +3,6 @@
         "nombre_usuario": "Kevin",
         "contrasena": "123",
         "age": 23,
-        "name": "Bird Ramsey",
         "gender": "male",
         "company": "NIMON",
         "email": "birdramsey@nimon.com"
@@ -12,7 +11,6 @@
         "nombre_usuario": "Oscar",
         "contrasena": "1233",
         "age": 23,
-        "name": "Bird Ramsey",
         "gender": "male",
         "company": "NIMON",
         "email": "birdramsey@nimon.com"
@@ -21,7 +19,6 @@
         "nombre_usuario": "Luis",
         "contrasena": "1234",
         "age": 23,
-        "name": "Bird Ramsey",
         "gender": "male",
         "company": "NIMON",
         "email": "birdramsey@nimon.com"
@@ -30,7 +27,6 @@
         "nombre_usuario": "Eduardo",
         "contrasena": "1235",
         "age": 23,
-        "name": "Bird Ramsey",
         "gender": "male",
         "company": "NIMON",
         "email": "birdramsey@nimon.com"

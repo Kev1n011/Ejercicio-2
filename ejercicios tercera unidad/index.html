@@ -248,6 +248,7 @@
                     <th>Edad</th>
                     <th>Género</th>
                     <th>Email</th>
+                    <th>Acciones</th>
                 </tr>
             </thead>
             <tbody>
@@ -256,10 +257,11 @@
                     <td>{{ usuario.age }}</td>
                     <td>{{ usuario.gender }}</td>
                     <td>{{ usuario.email }}</td>
+                    <td><button @click="eliminar_fila(usuario.email)" id="close-modal">Borrar</button></td>
                 </tr>
             </tbody>
         </table>
-
+ 
         <div v-if="mostrar_tabla" class="boton_regreso">
             <button @click="volver_registro" type="button">Regresar</button>
         </div>
@@ -269,6 +271,7 @@
                 <h3 id="modal-message">Mensaje de alerta</h3>
                 <button id="close-modal">Cerrar</button>
             </div>
+
         </div>
 
     </div>
@@ -312,7 +315,7 @@
                     },
                 ])
 
-                const nuevoUsuario = [];
+                const nuevoUsuario = ref([]);
 
 
 
@@ -459,6 +462,19 @@
                     this.registroCompleto = false;
                     this.mostrar_tabla = false;
                     this.sesion_iniciada = false;
+                },
+                eliminar_fila(email) {
+                    this.nuevoUsuario.forEach(usuario => {
+                            if (usuario.email === email) {
+                               
+                                console.log("Encontrado: " + email)
+                                this.nuevoUsuario.splice(usuario,1);
+                                console.log()
+                                
+                                
+                            }
+                        });
+
                 }
             }
 
