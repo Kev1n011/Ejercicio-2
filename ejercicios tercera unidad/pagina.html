@@ -17,7 +17,7 @@
         }
 
         #main {
-            max-width: 650px;
+            max-width: 900px;
             margin: 0 auto;
             background-color: #fff;
             padding: 30px;
@@ -91,24 +91,60 @@
 
         .boton_regreso {
             margin-top: 20px;
-            text-align: center;
+            float: right !important;
         }
 
-        .boton_regreso button {
+        .boton_regreso  {
             text-align: center;
             padding: 10px 20px;
             border-radius: 5px;
             font-size: 16px;
             color: #fff;
-            background-color: #dc3545;
+            background-color: #35dc3d !important;
+            margin-bottom: 39px !important;
             border: none;
             cursor: pointer;
             transition: background-color 0.3s ease;
         }
 
-        .boton_regreso button:hover {
+
+        .boton_eliminar {
+
+            padding: 5px 7px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #fff;
+            background-color: #dc3545;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-right: 10px;
+            border: none;
+            outline: none;
+        }
+
+
+        .boton_eliminar:hover {
             background-color: #c82333;
         }
+
+        .boton_editar {
+            padding: 5px 7px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #fff;
+            background-color: #3bdc35;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-left: 10px;
+            border: none;
+            outline: none;
+        }
+
+
+        .boton_editar:hover {
+            background-color: #0f9c32;
+        }
+
 
         .table {
             width: 100%;
@@ -183,10 +219,10 @@
 <body>
     <div id="main">
 
-        <h1 v-if="sesion_iniciada">Bienvenido</h1>
+        <h1 v-if="sesion_iniciada && !ocultar_formulario_registro">Tabla de usuarios</h1>
 
         <div class="registration-login-form">
-            <div v-if="!registroCompleto">
+            <div v-if="!registroCompleto && !ocultar_formulario_registro">
                 <h2>Formulario de Registro</h2>
                 <form @submit.prevent="insertar_datos">
                     <div class="form-group">
@@ -219,7 +255,41 @@
                 </form>
             </div>
 
-            <div v-if="registroCompleto && !mostrar_tabla">
+            <div class="registration-login-form">
+                <div v-if="anadir_usuario">
+                    <h2>Formulario de Registro</h2>
+                    <form @submit.prevent="insertar_datos">
+                        <div class="form-group">
+                            <input type="text" class="form-control item" id="nombre_usuario" placeholder="Nombre de usuario"
+                                required v-model="nombre_usuario">
+                        </div>
+                        <div class="form-group">
+                            <input type="password" class="form-control item" id="contrasena" placeholder="Contraseña"
+                                required v-model="contrasena">
+                        </div>
+                        <div class="form-group">
+                            <input type="number" class="form-control item" id="edad" placeholder="Edad" required
+                                v-model="age">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control item" id="genero" placeholder="Género" required
+                                v-model="gender">
+                        </div>
+                        <div class="form-group">
+                            <input type="text" class="form-control item" id="compania" placeholder="Compañía" required
+                                v-model="company">
+                        </div>
+                        <div class="form-group">
+                            <input type="email" class="form-control item" id="email" placeholder="Correo electrónico"
+                                required v-model="email">
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-block create-account">Registrar usuario</button>
+                        </div>
+                    </form>
+                </div>
+
+            <div v-if="registroCompleto && !mostrar_tabla && !anadir_usuario">
                 <h2>Formulario de Login</h2>
                 <form @submit.prevent="login">
                     <div class="form-group">
@@ -239,32 +309,73 @@
         </div>
 
 
+        <div v-if="mostrar_tabla && !anadir_usuario">
+            <button @click="registrar_usuario" type="button" class="boton_regreso">Añadir usuario</button>
 
-        <table v-if="mostrar_tabla" class="table table-bordered mt-4">
+            <table class="table table-bordered mt-4">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Nombre de usuario</th>
+                        <th>Edad</th>
+                        <th>Género</th>
+                        <th>Email</th>
+                        <th>Acciones</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr v-for="usuario in nuevoUsuario" :key="usuario.email">
+                        <td>{{ usuario.nombre_usuario }}</td>
+                        <td>{{ usuario.age }}</td>
+                        <td>{{ usuario.gender }}</td>
+                        <td>{{ usuario.email }}</td>
+                        <td><button @click="eliminar_fila(usuario.email)" id="boton_eliminar"
+                                class="boton_eliminar">Borrar</button>
+                            <button @click="editar_fila(
+                   usuario.id, 
+                   usuario.nombre_usuario, 
+                   usuario.age, 
+                   usuario.gender,  
+                   usuario.email, 
+                   )" id="boton_editar" class="boton_editar">Editar</button>
+                        </td>
 
-            <thead class="thead-dark">
-                <tr>
-                    <th>Nombre de usuario</th>
-                    <th>Edad</th>
-                    <th>Género</th>
-                    <th>Email</th>
-                    <th>Acciones</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr v-for="usuario in nuevoUsuario" :key="usuario.email">
-                    <td>{{ usuario.nombre_usuario }}</td>
-                    <td>{{ usuario.age }}</td>
-                    <td>{{ usuario.gender }}</td>
-                    <td>{{ usuario.email }}</td>
-                    <td><button @click="eliminar_fila(usuario.email)" id="close-modal">Borrar</button></td>
-                </tr>
-            </tbody>
-        </table>
- 
-        <div v-if="mostrar_tabla" class="boton_regreso">
-            <button @click="volver_registro" type="button">Regresar</button>
+                    </tr>
+                </tbody>
+            </table>
         </div>
+
+
+
+        <div v-if="ocultar_formulario_registro">
+            <h2>Editar usuario</h2>
+            <form @submit.prevent="formulario_editar">
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="nombre_usuario" placeholder="Nombre de usuario"
+                        required v-model="nombre_usuario">
+                </div>
+                <div class="form-group">
+                    <input type="number" class="form-control item" id="edad" placeholder="Edad" required v-model="age">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="genero" placeholder="Género" required
+                        v-model="gender">
+                </div>
+                <div class="form-group">
+                    <input type="text" class="form-control item" id="compania" placeholder="Compañía" required
+                        v-model="company">
+                </div>
+                <div class="form-group">
+                    <input type="email" class="form-control item" id="email" placeholder="Correo electrónico" required
+                        v-model="email">
+                </div>
+                <div class="form-group">
+                    <button type="submit" class="btn btn-block create-account">Guardar cambios</button>
+                </div>
+            </form>
+        </div>
+
+
+
 
         <div id="myModal" class="modal">
             <div class="modal-content">
@@ -286,6 +397,7 @@
 
             setup() {
                 const name_app = ref('Hello vue!')
+
                 let nombre = ref("")
                 let resultado = ref(0)
                 let num1 = ref()
@@ -296,6 +408,9 @@
                 let datos_llenados = ref(false)
                 let registroCompleto = ref(false)
                 let mostrar_tabla = ref(false)
+                let anadir_usuario = ref(false)
+                let id = ref(0) //id para poder usarlo como identificador en lugar de el correo
+                let ocultar_formulario_registro = ref(false)
 
 
                 let users = ref([
@@ -315,7 +430,7 @@
                     },
                 ])
 
-                const nuevoUsuario = [];
+                const nuevoUsuario = ref([]);
 
 
 
@@ -334,7 +449,7 @@
                     sexo,
                     users,
                     nombre_usuario, contrasena, contrasena, age, gender, company, email, sesion_iniciada, nuevoUsuario, datos_llenados,
-                    registroCompleto
+                    registroCompleto, mostrar_tabla, ocultar_formulario_registro, id, anadir_usuario
 
                 }
             },
@@ -398,14 +513,15 @@
                         }
                         const json = await response.json();
                         if (!this.datos_llenados) {
-                            json.forEach(element => {
-                                this.nuevoUsuario.push(element)
-
+                            json.forEach((element, index) => {
+                                element.id = index; // Asignar un id único a cada usuario
+                                this.nuevoUsuario.push(element);
                             });
                             this.datos_llenados = true;
-
+                            this.id = json.length; // Actualizar el id para nuevos usuarios
                         }
                         this.nuevoUsuario.push({
+                            id: this.id,
                             nombre_usuario: this.nombre_usuario,
                             contrasena: this.contrasena,
                             age: this.age,
@@ -413,6 +529,7 @@
                             company: this.company,
                             email: this.email
                         });
+                        this.id++
                         //json.push(this.nuevoUsuario);
 
                         localStorage.setItem('usuarios', JSON.stringify(this.nuevoUsuario));
@@ -430,6 +547,11 @@
                     this.gender = "";
                     this.company = "";
                     this.email = "";
+
+                    if(this.anadir_usuario == true){
+                        console.log("olaaa: " + this.anadir_usuario)
+                        this.anadir_usuario = false
+                    }
 
 
 
@@ -455,27 +577,100 @@
                     this.mostrarModal(texto);
                 },
 
-                alerta_bienvenido() {
-                    this.mostrarModal("Bienvenido");
-                },
+
                 volver_registro() {
                     this.registroCompleto = false;
                     this.mostrar_tabla = false;
                     this.sesion_iniciada = false;
+                    this.anadir_usuario = true
+                },
+                registrar_usuario() {
+                   
+                    this.anadir_usuario = true
+                },
+
+                volver_tabla() {
+                    this.anadir_usuario = false
                 },
                 eliminar_fila(email) {
-                    this.nuevoUsuario.forEach(usuario => {
-                            if (usuario.email === email) {
-                               
-                                console.log("Encontrado: " + email)
-                                this.nuevoUsuario.splice(usuario,1);
-                                console.log()
-                                
-                                
-                            }
-                        });
+                    for (let i = 0; i < this.nuevoUsuario.length; i++) {
+                        if (this.nuevoUsuario[i].email === email) {
+                            console.log("Encontrado: " + email);
+                            this.alerta("Usuario eliminado")
+                            this.nuevoUsuario.splice(i, 1);
+                            break;
+                        }
+                    }
+
+                },
+                editar_fila(id, nombre, age, gender, email) {
+
+                    for (let i = 0; i < this.nuevoUsuario.length; i++) {
+
+                        if (this.nuevoUsuario[i].id === id) {
+
+                            this.nombre_usuario = this.nuevoUsuario[i].nombre_usuario
+                            this.age = this.nuevoUsuario[i].age
+                            this.gender = this.nuevoUsuario[i].gender
+                            this.company = this.nuevoUsuario[i].company
+                            this.email = this.nuevoUsuario[i].email
+                            this.id = this.nuevoUsuario[i].id
+                            console.log(this.nombre_usuario, this.age, this.gender, this.company, this.email)
+                            this.mostrar_tabla = false
+                            this.registroCompleto = false
+                            this.ocultar_formulario_registro = true;
+                            console.log("mostrar tabla: " + this.mostrar_tabla)
+                            break;
+
+
+                        }
+                    }
+                },
+                formulario_editar() {
+
+                    for (let i = 0; i < this.nuevoUsuario.length; i++) {
+                        if (this.nuevoUsuario[i].id === this.id) {
+                            this.nuevoUsuario[i].nombre_usuario = this.nombre_usuario;
+                            this.nuevoUsuario[i].age = this.age;
+                            this.nuevoUsuario[i].gender = this.gender;
+                            this.nuevoUsuario[i].company = this.company;
+                            this.nuevoUsuario[i].email = this.email;
+
+                            this.alerta("Cambios guardados correctamente");
+                            this.ocultar_formulario_registro = false;
+                            this.mostrar_tabla = true;
+                            this.registroCompleto = true;
+
+                            break;
+                        }
+                    }
+
+
+
+
 
                 }
+
+            },
+
+            mounted() {
+
+                fetch("users.json")
+                    .then(response => response.json())
+                    .then(response => {
+
+                        this.users = response;
+
+                    });
+
+                let user_data = localStorage.getItem("user_data");
+                if (user_data != null) {
+
+                    user_data = JSON.parse(user_data)
+
+                    this.is_log = true
+                }
+
             }
 
 
